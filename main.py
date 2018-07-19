@@ -6,6 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 class MyRoot(BoxLayout):
 
     def get_token(self,instance):
+        password = self.ids.password.text
         headers = {'Content-Type':'application/json'}
         body = """
         {
@@ -17,36 +18,36 @@ class MyRoot(BoxLayout):
                     "password": {
                         "user": {
                             "domain": {
-                                "name": "Default"
+                                "name": \""""+ self.ids.domain.text +"""\"
                             },
-                        "name": "admin",
-                        "password": "123456"
+                        "name": \""""+ self.ids.login.text +"""\",
+                        "password": \""""+ self.ids.password.text +"""\"
                         }
                     }
                 },
                 "scope": {
                     "project": {
                         "domain": {
-                            "name": "Default"
+                            "name": \""""+ self.ids.domain.text +"""\"
                         },
-                        "name":  "admin"
+                        "name": \""""+ self.ids.project.text +"""\"
                     }
                 }
             }
         }
         """
         UrlRequest('http://controller:5000/v3/auth/tokens', self.print_token, req_headers=headers, req_body=body)
-        
+        print body
     def print_token(self, req, result):
         token = req.resp_headers['x-subject-token']
         print token
 
-        self.ids.bt2.text = token
+        self.ids.token.text = token
 
     
     def get_status_host(self, instance):
-        headers = {'X-Auth-Token':'gAAAAABbSAIvetASpmo9wCUz5p3xXf3DNqL0N0lxaoqVQfGwMrqs3x6tQB_Ok6QVQmZYQaVfFPXfdpVUZM-mCFqfRqgz2ujRtGcdUsPhB7SHNI2QlmH48L8oqcf213GkJMMvQSez7akw6qbDXBwyMqoSn9R2v2tHeEj4y0EYV2CGsHv7P5XBWYE'}
         server = self.ids.server_name.text
+        headers = {'X-Auth-Token':self.ids.token.text}
         UrlRequest('http://%s/v2.1/os-hypervisors/1'%server, self.print_status_host, req_headers=headers)
 
     def print_status_host(self, req, result):
@@ -74,7 +75,7 @@ class MyRoot(BoxLayout):
         'Percentual: ' + str(round(percentual_utilizado,1)) + '%\n'
         print msg
 
-        self.ids.bt.text = msg
+        self.ids.status.text = msg
 
 class MainApp(App):
 	pass

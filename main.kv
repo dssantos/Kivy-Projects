@@ -1,19 +1,47 @@
 MyRoot:
 	orientation: 'vertical'
-	Label:
-		text: 'Servidor:'
-		size_hint_y: .2
-	TextInput:
-		id: server_name
-		text: 'controller:8774'
-		size_hint_y: .2
+	GridLayout:
+		cols: 2
+		size_hint_y: .5
+		Label:
+			text: 'Servidor:'
+		TextInput:
+			id: server_name
+			text: 'controller:8774'
+		Label:
+			text: 'Dominio:'
+		TextInput:
+			id: domain
+			text: 'Default'
+		Label:
+			text: 'Projeto:'
+		TextInput:
+			id: project
+			text: 'admin'
+		Label:
+			text: 'Login:'
+		TextInput:
+			id: login
+			text: 'admin'
+		Label:
+			text: 'Senha:'
+		TextInput:
+			id: password
+			text: "123456"
+
+
 	Button:
-		id: bt
-		on_release: root.get_status_host(self)
-		text: 'Exibir Lista'
-		font_size: '25sp'
-	Button:
-		id: bt2
+		text: 'Atualizar Token'
+		size_hint_y: .1
 		on_release: root.get_token(self)
-		text: 'Obter Token'
-		font_size: '25sp'
+	TextInput:
+		id: token
+		text: ''
+		size_hint_y: .15
+	Button:
+		text: 'Obter Status'
+		size_hint_y: .1
+		on_release: root.get_status_host(self)
+	Label:
+		id: status
+		text: ''
