@@ -31,17 +31,17 @@ MyRoot:
 
 
 	Button:
-		text: 'Atualizar Token'
-		size_hint_y: .1
-		on_release: root.get_token(self)
-	TextInput:
-		id: token
-		text: ''
-		size_hint_y: .15
-	Button:
 		text: 'Obter Status'
 		size_hint_y: .1
-		on_release: root.get_status_host(self)
-	Label:
-		id: status
-		text: ''
+		on_release: root.show_status(self)
+
+    ScrollView:
+        BoxLayout:
+            size_hint_y: None
+            height: '600sp'
+            orientation: 'vertical'
+			Label:
+				id: status
+				size_hint_y: None
+				text: ''
+
