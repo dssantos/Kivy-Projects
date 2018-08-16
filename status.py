@@ -10,7 +10,7 @@ def get(domain, login, password, project):
 	hosts = ast.literal_eval(r.content) # Retorna o conteúdo da URL consultada
 	hosts = hosts['hypervisors']
 	## Testes
-	# hosts = [{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute1'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute2'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute3'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute4'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute5'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute6'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute7'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute8'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute9'}]
+	# hosts = [{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute1'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute2'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute3'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute4'},{'status': 'enabled', 'state': 'up', 'id': 1, 'hypervisor_hostname': 'compute5'}]
 
 	status = range(len(hosts))
 
@@ -25,5 +25,4 @@ def get(domain, login, password, project):
 
 		status[hosts.index(host)] = host_status
 
-	print status
 	return status
