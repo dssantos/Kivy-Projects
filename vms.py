@@ -1,11 +1,11 @@
 #coding: utf-8
 
-import requests, json
+import requests, json, header
 
-def get(host_id, headers): # O método deve receber um host_id e o headers(token)
+def get(host_id): # O método deve receber um host_id e o headers(token)
 	
 	try:
-		r = requests.get('http://controller:8774/v2.1/os-hypervisors/%s'%host_id, headers=headers)
+		r = requests.get('http://controller:8774/v2.1/os-hypervisors/%s'%host_id, headers=header.get())
 		vms = json.loads(r.content)
 		vms = vms[u'hypervisor']["running_vms"]
 

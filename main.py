@@ -8,12 +8,7 @@ class MyRoot(BoxLayout):
 
     def show_status(self, instance):
 
-        domain = self.ids.domain.text
-        login = self.ids.login.text
-        password = self.ids.password.text
-        project = self.ids.project.text
-
-        hosts = status.get(domain, login, password, project)
+        hosts = status.get()
         texto = ''
         for host in hosts:
 

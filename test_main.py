@@ -2,12 +2,7 @@
 
 import status
 
-domain = 'Default'
-login = 'admin'
-password = '123456'
-project = 'admin'
-
-hosts = status.get(domain, login, password, project)
+hosts = status.get()
 texto = ''
 for host in hosts:
 

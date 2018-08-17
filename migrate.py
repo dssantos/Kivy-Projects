@@ -6,7 +6,6 @@ source_host = 'compute1'
 destination_host = 'compute2'
 servers_to_migrate = servers_by_host.get(source_host)
 
-headers = header.get('Default', 'admin', '123456', 'admin')
 body = """
 {
     "os-migrateLive": {
@@ -19,6 +18,6 @@ body = """
 
 for server in servers_to_migrate:
 
-	r = requests.post('http://controller:8774/v2.1/servers/%s/action'%server, data=body, headers=headers)
+	r = requests.post('http://controller:8774/v2.1/servers/%s/action'%server, data=body, headers=header.get())
 	print server + ' migrado para ' + destination_host
 	print r

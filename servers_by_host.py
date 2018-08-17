@@ -4,8 +4,7 @@ import requests, json, header
 
 def get(host): # O método deve receber um host_id
 
-	headers = header.get('Default', 'admin', '123456', 'admin')
-	r = requests.get('http://controller:8774/v2.1/os-hypervisors/%s/servers'%host, headers=headers)
+	r = requests.get('http://controller:8774/v2.1/os-hypervisors/%s/servers'%host, headers=header.get())
 	servers = json.loads(r.content)
 	servers= servers['hypervisors'][0]['servers']
 
