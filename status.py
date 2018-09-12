@@ -12,13 +12,20 @@ def get():
 
 	status = []
 
+	file = open("registered.txt", "r+")
+	registered = file.read()	
+	registered = ast.literal_eval(registered)
+
 	for host in hosts:
-		state = host['state']
-		if state == 'up':
+		if host['hypervisor_hostname'] in registered:  # Verifica apenas os hosts registrados no arquivo registered.txt
+			state = host['state']
 			host_id = host['id']
 			hostname = host['hypervisor_hostname']
 			vms_runnig = vms.get(host_id)
-			ram = ram_usage.get(hostname)
+			if state == 'up':
+				ram = ram_usage.get(hostname)
+			else:
+				ram = 0
 			host_status = "{'id': " + str(host_id) + ", 'hostname': '" + hostname + "', 'state': '" + state + "', 'vms': " + str(vms_runnig) + ", 'ram': " + str(ram) + "}"
 			host_status = ast.literal_eval(host_status)
 
