@@ -1,6 +1,6 @@
 #coding: utf-8
 
-import status, shutdown, wake, ast
+import time, sys, status, shutdown, wake, ast, mac
 
 def run():
 	
@@ -50,7 +50,7 @@ def run():
 					print 'desligando %s' %idle[i+1]
 		else:
 			if len(offline) > 0:				# Se existir hosts offline ...
-				print 'ligando %s' %offline[0]
+				print 'ligando %s %s' %(offline[0], mac.get(offline[0]))
 				wake.run(offline[0]) 			# Acorda o primeiro host offline da lista
 			else:
 				print 'Não há mais hosts offline para ligar.\nO sistema está no limite!!!'
@@ -59,14 +59,26 @@ def run():
 			if ram_avg >= 50:				## Se RAM estiver entre 50 e 75
 				for i in range(len(idle)-1):	# Desliga todos menos 1
 					shutdown.run(idle[i+1])
+					print 'desligando %s' %idle[i+1]
 			else:
 				if len(running) >= 1:		## Se houver pelo menos 1 host ativo
 					for host in idle:				
 						shutdown.run(host)		# Desliga todos os hosts ociosos
-				else:
+						print 'desligando %s' %host
+				else:								# Senão...
 					for i in range(len(idle)-1):	# Desliga todos menos 1
 						shutdown.run(idle[i+1])
 						print 'desligando %s' %idle[i+1]
 
+def start():
+		
+	while True:
 
-run()
+		print '\n\nVerificando Hosts...\n'
+		run()
+
+		for i in xrange(120,-1,-1):
+		     print "  Próxima verificação: %3d\r"%i,
+		     time.sleep(1)
+		     sys.stdout.flush()
+
