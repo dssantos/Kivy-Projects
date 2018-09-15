@@ -41,13 +41,16 @@ def run():
 	print 'média de ram: %s' %ram_avg
 
 ## Lógica do gerenciamento dos hosts a serem ligados e desligados
+	
+	lim_max = 70
+	lim_med = 35
 
-	if ram_avg >= 70:						## Se RAM estiver a partir de 75
+	if ram_avg > lim_max:						## Se RAM estiver acima do limite máximo
 		if len(idle) > 0:
 			if len(idle) > 1:					## Mantêm 1 ocioso ligado, mas desliga os demais
 				for i in range(len(idle)-1):	# Desliga todos menos 1
-					shutdown.run(idle[i+1])
 					print 'desligando %s' %idle[i+1]
+					shutdown.run(idle[i+1])
 		else:
 			if len(offline) > 0:				# Se existir hosts offline ...
 				print 'ligando %s %s' %(offline[0], mac.get(offline[0]))
@@ -56,19 +59,19 @@ def run():
 				print 'Não há mais hosts offline para ligar.\nO sistema está no limite!!!'
 	else:
 		if len(idle) > 0:
-			if ram_avg >= 50:				## Se RAM estiver entre 50 e 75
+			if ram_avg >= lim_med:				## Se RAM estiver entre os limites médio e máximo
 				for i in range(len(idle)-1):	# Desliga todos menos 1
-					shutdown.run(idle[i+1])
 					print 'desligando %s' %idle[i+1]
+					shutdown.run(idle[i+1])
 			else:
 				if len(running) >= 1:		## Se houver pelo menos 1 host ativo
 					for host in idle:				
-						shutdown.run(host)		# Desliga todos os hosts ociosos
 						print 'desligando %s' %host
+						shutdown.run(host)		# Desliga todos os hosts ociosos
 				else:								# Senão...
 					for i in range(len(idle)-1):	# Desliga todos menos 1
-						shutdown.run(idle[i+1])
 						print 'desligando %s' %idle[i+1]
+						shutdown.run(idle[i+1])
 
 def start():
 		
